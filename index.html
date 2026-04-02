@@ -923,11 +923,19 @@
             // Cara B (link internet langsung):
             //   { src: "https://i.imgur.com/xxxxx.jpg", caption: "Caption" }
             // =======================================
-            
-photos: [{
-    src: "ida 1.jpeg", 
-    caption: "Kenangan indah bersamamu ✨"
-},
+            // Ganti bagian photos di dalam file index.html kamu menjadi seperti ini:
+
+            photos: [{
+                src: "https://i.imgur.com/0Roi3BV.jpg",
+                caption: "Kenangan indah bersamamu ✨"
+            }, {
+                src: "https://i.imgur.com/rxhnPyo.jpg",
+                caption: "Momen yang tidak terlupakan 🌸"
+            }, {
+                src: "https://i.imgur.com/4syBfH6.jpg",
+                caption: "Selalu ada di hatiku 🧡"
+            }],
+
             messages: [{
                 text: "Selamat ulang tahun! Semoga hari ini menjadi awal dari hal-hal luar biasa yang menantimu.",
                 from: "💛 Dari Kami Semua"
@@ -939,8 +947,7 @@ photos: [{
                 from: "🌸 Dengan Cinta"
             }, {
                 text: "Semoga tahun ini membawamu lebih dekat ke semua hal yang kamu inginkan. Happy birthday, stay blessed!",
-                from: "🎂 Selamanya Bersamamu" 
-                    
+                from: "🎂 Selamanya Bersamamu"
             }, {
                 text: "Kamu sudah melewati banyak hal dan kamu masih di sini — kuat, bersinar, luar biasa. Selamat ulang tahun!",
                 from: "🌟 From the Heart"
@@ -995,18 +1002,18 @@ photos: [{
             return url;
         }
 
-        // Bangun slides dari CONFIG.photos
-        const slides = document.querySelectorAll('.slide');
+        // Bangun slides dari CONFIG.photos (VERSI PERBAIKAN)
+        const slidesEl = document.querySelectorAll('.slide');
         const dotsWrap = document.getElementById('photoDots');
 
-        slides.forEach((slide, i) => {
+        slidesEl.forEach((slide, i) => {
             const p = CONFIG.photos[i];
             if (p && p.src) {
-                const finalSrc = toGDriveImg(p.src);
+                // Kita tidak pakai toGDriveImg agar link Imgur tidak rusak
                 const imgBox = slide.querySelector('.slide-img');
-                imgBox.innerHTML = `<img src="${finalSrc}" alt="foto ${i+1}"
-      style="width:100%;height:100%;object-fit:cover;border-radius:16px;"
-      onerror="this.parentNode.innerHTML='<div class=slide-placeholder><span>⚠️</span><p>Pastikan foto sudah Public</p></div>'"/>`;
+                imgBox.innerHTML = `<img src="${p.src}" alt="foto ${i+1}" 
+            style="width:100%;height:100%;object-fit:cover;border-radius:16px;"
+            onerror="this.src='https://via.placeholder.com/400x500?text=Foto+Error'"/>`;
             }
             if (p && p.caption) {
                 slide.querySelector('.slide-caption').textContent = p.caption;
@@ -1024,7 +1031,8 @@ photos: [{
             const el = document.createElement('div');
             el.className = 'card';
             el.style.animationDelay = (i * 0.1) + 's';
-            el.innerHTML = `<span class="q">"</span><p>${m.text}</p><p class="from">${m.from}</p>`;
+            el.innerHTML = ` < span class = "q" > "</span><p>${m.text}</p><p class="
+        from ">${m.from}</p>`;
             cardList.appendChild(el);
         });
 
